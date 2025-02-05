@@ -1,0 +1,1196 @@
+openapi: 3.0.1
+info:
+  title: API
+  version: '1.0'
+paths:
+  /api/Admins/Register:
+    post:
+      tags:
+        - Admins
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/RegisterUserDto'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterUserDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/RegisterUserDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/RegisterUserDto'
+      responses:
+        '200':
+          description: OK
+  /register:
+    post:
+      tags:
+        - API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/HttpValidationProblemDetails'
+  /login:
+    post:
+      tags:
+        - API
+      parameters:
+        - name: useCookies
+          in: query
+          schema:
+            type: boolean
+        - name: useSessionCookies
+          in: query
+          schema:
+            type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse'
+  /refresh:
+    post:
+      tags:
+        - API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse'
+  /confirmEmail:
+    get:
+      tags:
+        - API
+      operationId: MapIdentityApi-/confirmEmail
+      parameters:
+        - name: userId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: code
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: changedEmail
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+  /resendConfirmationEmail:
+    post:
+      tags:
+        - API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResendConfirmationEmailRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+  /forgotPassword:
+    post:
+      tags:
+        - API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForgotPasswordRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/HttpValidationProblemDetails'
+  /resetPassword:
+    post:
+      tags:
+        - API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResetPasswordRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/HttpValidationProblemDetails'
+  /manage/2fa:
+    post:
+      tags:
+        - API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TwoFactorRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TwoFactorResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/HttpValidationProblemDetails'
+        '404':
+          description: Not Found
+  /manage/info:
+    get:
+      tags:
+        - API
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InfoResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/HttpValidationProblemDetails'
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InfoRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InfoResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/HttpValidationProblemDetails'
+        '404':
+          description: Not Found
+  /api/CareTeams:
+    get:
+      tags:
+        - CareTeams
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CareTeamReadDto'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CareTeamReadDto'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CareTeamReadDto'
+    post:
+      tags:
+        - CareTeams
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/CareTeamCreateDto'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CareTeamCreateDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CareTeamCreateDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CareTeamCreateDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CareTeamReadDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CareTeamReadDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CareTeamReadDto'
+  /api/CareTeams/{id}:
+    get:
+      tags:
+        - CareTeams
+      operationId: GetCareTeamById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CareTeamReadDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CareTeamReadDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CareTeamReadDto'
+    put:
+      tags:
+        - CareTeams
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/CareTeamUpdateDto'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CareTeamUpdateDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CareTeamUpdateDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CareTeamUpdateDto'
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - CareTeams
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /api/Patients:
+    get:
+      tags:
+        - Patients
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PatientReadDto'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PatientReadDto'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PatientReadDto'
+    post:
+      tags:
+        - Patients
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/PatientCreateDto'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatientCreateDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PatientCreateDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PatientCreateDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PatientReadDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientReadDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PatientReadDto'
+  /api/Patients/{id}:
+    get:
+      tags:
+        - Patients
+      operationId: GetPatientById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PatientReadDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientReadDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PatientReadDto'
+    put:
+      tags:
+        - Patients
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/PatientUpdateDto'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatientUpdateDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PatientUpdateDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PatientUpdateDto'
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - Patients
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /api/Recommendations:
+    get:
+      tags:
+        - Recommendations
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecommendationReadDto'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecommendationReadDto'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecommendationReadDto'
+    post:
+      tags:
+        - Recommendations
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/RecommendationCreateDto'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecommendationCreateDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/RecommendationCreateDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/RecommendationCreateDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/RecommendationReadDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecommendationReadDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/RecommendationReadDto'
+  /api/Recommendations/{id}:
+    get:
+      tags:
+        - Recommendations
+      operationId: GetRecommendationById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/RecommendationReadDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecommendationReadDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/RecommendationReadDto'
+    put:
+      tags:
+        - Recommendations
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/RecommendationUpdateDto'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecommendationUpdateDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/RecommendationUpdateDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/RecommendationUpdateDto'
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - Recommendations
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /api/UserCareTeams:
+    get:
+      tags:
+        - UserCareTeams
+      parameters:
+        - name: userId
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserCareTeamReadDto'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserCareTeamReadDto'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserCareTeamReadDto'
+    post:
+      tags:
+        - UserCareTeams
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/UserCareTeamCreateDto'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCareTeamCreateDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UserCareTeamCreateDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/UserCareTeamCreateDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/UserCareTeamReadDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserCareTeamReadDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/UserCareTeamReadDto'
+  /api/UserCareTeams/{id}:
+    get:
+      tags:
+        - UserCareTeams
+      operationId: GetUserCareTeamById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/UserCareTeamReadDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserCareTeamReadDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/UserCareTeamReadDto'
+    put:
+      tags:
+        - UserCareTeams
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/UserCareTeamUpdateDto'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCareTeamUpdateDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UserCareTeamUpdateDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/UserCareTeamUpdateDto'
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - UserCareTeams
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /api/Users:
+    get:
+      tags:
+        - Users
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/UserReadDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserReadDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/UserReadDto'
+  /api/Users/Register:
+    post:
+      tags:
+        - Users
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/RegisterUserDto'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterUserDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/RegisterUserDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/RegisterUserDto'
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    AccessTokenResponse:
+      required:
+        - accessToken
+        - expiresIn
+        - refreshToken
+      type: object
+      properties:
+        tokenType:
+          type: string
+          nullable: true
+          readOnly: true
+        accessToken:
+          type: string
+          nullable: true
+        expiresIn:
+          type: integer
+          format: int64
+        refreshToken:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CareTeamCreateDto:
+      required:
+        - name
+      type: object
+      properties:
+        leadId:
+          type: string
+          nullable: true
+        name:
+          maxLength: 256
+          minLength: 1
+          type: string
+      additionalProperties: false
+    CareTeamReadDto:
+      required:
+        - name
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        leadId:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      additionalProperties: false
+    CareTeamUpdateDto:
+      required:
+        - name
+      type: object
+      properties:
+        leadId:
+          type: string
+          nullable: true
+        name:
+          maxLength: 256
+          type: string
+          nullable: true
+      additionalProperties: false
+    ForgotPasswordRequest:
+      required:
+        - email
+      type: object
+      properties:
+        email:
+          type: string
+          nullable: true
+      additionalProperties: false
+    HttpValidationProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          nullable: true
+      additionalProperties: {}
+    InfoRequest:
+      type: object
+      properties:
+        newEmail:
+          type: string
+          nullable: true
+        newPassword:
+          type: string
+          nullable: true
+        oldPassword:
+          type: string
+          nullable: true
+      additionalProperties: false
+    InfoResponse:
+      required:
+        - email
+        - isEmailConfirmed
+      type: object
+      properties:
+        email:
+          type: string
+          nullable: true
+        isEmailConfirmed:
+          type: boolean
+      additionalProperties: false
+    LoginRequest:
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+          nullable: true
+        password:
+          type: string
+          nullable: true
+        twoFactorCode:
+          type: string
+          nullable: true
+        twoFactorRecoveryCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    PatientCreateDto:
+      required:
+        - careTeamId
+        - firstName
+        - lastName
+      type: object
+      properties:
+        firstName:
+          maxLength: 35
+          minLength: 1
+          type: string
+        lastName:
+          maxLength: 35
+          minLength: 1
+          type: string
+        careTeamId:
+          type: integer
+          format: int32
+      additionalProperties: false
+    PatientReadDto:
+      required:
+        - firstName
+        - lastName
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        firstName:
+          type: string
+          nullable: true
+        lastName:
+          type: string
+          nullable: true
+        careTeamId:
+          type: integer
+          format: int32
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      additionalProperties: false
+    PatientUpdateDto:
+      required:
+        - firstName
+        - lastName
+      type: object
+      properties:
+        firstName:
+          maxLength: 35
+          type: string
+          nullable: true
+        lastName:
+          maxLength: 35
+          type: string
+          nullable: true
+        careTeamId:
+          type: integer
+          format: int32
+      additionalProperties: false
+    RecommendationCreateDto:
+      required:
+        - patientId
+        - title
+        - type
+      type: object
+      properties:
+        patientId:
+          type: integer
+          format: int32
+        type:
+          maxLength: 25
+          minLength: 1
+          type: string
+        title:
+          maxLength: 256
+          minLength: 1
+          type: string
+        memo:
+          maxLength: 512
+          type: string
+          nullable: true
+        completed:
+          type: boolean
+      additionalProperties: false
+    RecommendationReadDto:
+      required:
+        - title
+        - type
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        patientId:
+          type: integer
+          format: int32
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        memo:
+          type: string
+          nullable: true
+        completed:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      additionalProperties: false
+    RecommendationUpdateDto:
+      required:
+        - title
+        - type
+      type: object
+      properties:
+        patientId:
+          type: integer
+          format: int32
+        type:
+          maxLength: 25
+          type: string
+          nullable: true
+        title:
+          maxLength: 256
+          type: string
+          nullable: true
+        memo:
+          maxLength: 512
+          type: string
+          nullable: true
+        completed:
+          type: boolean
+      additionalProperties: false
+    RefreshRequest:
+      required:
+        - refreshToken
+      type: object
+      properties:
+        refreshToken:
+          type: string
+          nullable: true
+      additionalProperties: false
+    RegisterRequest:
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+          nullable: true
+        password:
+          type: string
+          nullable: true
+      additionalProperties: false
+    RegisterUserDto:
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+          nullable: true
+        password:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ResendConfirmationEmailRequest:
+      required:
+        - email
+      type: object
+      properties:
+        email:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ResetPasswordRequest:
+      required:
+        - email
+        - newPassword
+        - resetCode
+      type: object
+      properties:
+        email:
+          type: string
+          nullable: true
+        resetCode:
+          type: string
+          nullable: true
+        newPassword:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TwoFactorRequest:
+      type: object
+      properties:
+        enable:
+          type: boolean
+          nullable: true
+        twoFactorCode:
+          type: string
+          nullable: true
+        resetSharedKey:
+          type: boolean
+        resetRecoveryCodes:
+          type: boolean
+        forgetMachine:
+          type: boolean
+      additionalProperties: false
+    TwoFactorResponse:
+      required:
+        - isMachineRemembered
+        - isTwoFactorEnabled
+        - recoveryCodesLeft
+        - sharedKey
+      type: object
+      properties:
+        sharedKey:
+          type: string
+          nullable: true
+        recoveryCodesLeft:
+          type: integer
+          format: int32
+        recoveryCodes:
+          type: array
+          items:
+            type: string
+          nullable: true
+        isTwoFactorEnabled:
+          type: boolean
+        isMachineRemembered:
+          type: boolean
+      additionalProperties: false
+    UserCareTeamCreateDto:
+      required:
+        - careTeamId
+        - userId
+      type: object
+      properties:
+        userId:
+          minLength: 1
+          type: string
+        careTeamId:
+          type: integer
+          format: int32
+      additionalProperties: false
+    UserCareTeamReadDto:
+      required:
+        - userId
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        userId:
+          type: string
+          nullable: true
+        careTeamId:
+          type: integer
+          format: int32
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      additionalProperties: false
+    UserCareTeamUpdateDto:
+      required:
+        - userId
+      type: object
+      properties:
+        userId:
+          type: string
+          nullable: true
+        careTeamId:
+          type: integer
+          format: int32
+      additionalProperties: false
+    UserReadDto:
+      type: object
+      properties:
+        userId:
+          type: string
+          nullable: true
+        userEmail:
+          type: string
+          nullable: true
+        userRole:
+          type: string
+          nullable: true
+      additionalProperties: false
