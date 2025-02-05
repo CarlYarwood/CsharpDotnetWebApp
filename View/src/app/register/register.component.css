@@ -1,0 +1,20 @@
+.register-header{
+    margin-bottom: 20px;
+}
+
+.submit-button{
+    padding: 10px
+}
+
+.register-email{
+    padding-bottom: 25px;
+}
+
+.register-password-block{
+    padding-bottom: 75px;
+}
+
+.register-button{
+    display: inline;
+    padding: 10px;
+}

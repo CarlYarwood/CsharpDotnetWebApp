@@ -1,0 +1,16 @@
+.login-header{
+    margin-bottom: 20px;
+}
+
+.submit-button{
+    display: inline;
+    padding: 10px;
+}
+
+.email-input{
+    padding-bottom: 30px;
+}
+
+.password-input{
+    padding-bottom: 25px;
+}

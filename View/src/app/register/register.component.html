@@ -1,0 +1,79 @@
+<mat-grid-list cols="1" rowHeight="2:1">
+    <mat-grid-tile>
+        <mat-card appearance="outlined">
+            <div class="register-header">
+                <mat-card-header>
+                    <mat-card-title>Register</mat-card-title>
+                </mat-card-header>
+            </div>
+            <mat-card-content>
+                <form>
+                    <div class="register-email">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Email</mat-label>
+                            <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher">
+                            @if (emailFormControl.hasError('email') && !emailFormControl.hasError('required')) {
+                                <mat-error>Please enter a valid email address</mat-error>
+                            }
+                            @if (emailFormControl.hasError('required')) {
+                                <mat-error>Email is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                    <div class="register-password-block">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Password</mat-label>
+                            <input [type]="hidePass() ? 'password' : 'text'" matInput [formControl]="passwordFormControl" [errorStateMatcher]="matcher">
+                            <button
+                                mat-icon-button
+                                matSuffix
+                                (click)="toggleHide()"
+                                [attr.aria-label]="'Hide password'"
+                                [attr.aria-pressed]="hidePass()"
+                            >
+                            <mat-icon>{{hidePass() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                            @if (passwordFormControl.hasError('minlength') && !passwordFormControl.hasError('pattern') && !passwordFormControl.hasError('required')){
+                                <mat-error>Password Must be at least 6 characters long</mat-error>
+                            }
+                            @if (passwordFormControl.hasError('pattern') && !passwordFormControl.hasError('required')) {
+                                <mat-error>Password Must contain at least 1 lower case letter, 1 uppercase letter, 1 number, and 1 special character (&#64;#$%^&+=)</mat-error>
+                            }
+                            @if (passwordFormControl.hasError('required')) {
+                                <mat-error>Password is Required</mat-error>
+                            }
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Confirm Password</mat-label>
+                            <input [type]="hidePass() ? 'password' : 'text'" matInput [formControl]="confirmPasswordFormControl" [errorStateMatcher]="matcher">
+                            <button
+                                mat-icon-button
+                                matSuffix
+                                (click)="toggleHide()"
+                                [attr.aria-label]="'Hide password'"
+                                [attr.aria-pressed]="hidePass()"
+                            >
+                            <mat-icon>{{hidePass() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                            @if (confirmPasswordFormControl.hasError('passwordmatch') && !confirmPasswordFormControl.hasError('required')){
+                                <mat-error>Confirm Password must Match Password</mat-error>
+                            }
+                            @if (confirmPasswordFormControl.hasError('required')){
+                                <mat-error>Confirm Password is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                    <section>
+                        <div class="register-button">
+                            <button mat-flat-button (click)="onSubmit()">Submit</button>
+                        </div>
+                        <button mat-button-basic (click)="onBack()">Back</button>
+                    </section>
+                    @if (registrationError) {
+                        <mat-error>Registration Failed Please try again</mat-error>
+                    }
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>
